@@ -1,0 +1,75 @@
+<div class="wrap">
+    <form class="d-flex" role="search" style="margin-bottom: 20px;">
+        <input class="form-control me-4" type="search" placeholder="Tìm động vật" aria-label="Search" name="searchQuery" [(ngModel)]="searchQuery">
+        <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()" >Tìm kiếm</button>
+      </form>
+    <button type="button" class="btn btn-primary" > <a href="taodv" class="nav-link">Tạo động vật</a> </button>
+    <table class="table table-bordered table-dark" style="table-layout:fixed;">
+        <thead>
+            <tr>
+                <th style="width: 10%;">Số thứ tự</th>
+                <th style="width: 10%;">Tên</th>
+                <th style="width: 50%;">Mô tả</th>
+                <th style="width: 10%;">Loài</th>
+                <th style="width: 15%;">Update</th>
+                <th style="width: 15%;">Delete</th>
+            </tr>
+        </thead>
+        <tbody >
+            @for (dv of animal; track $index) {
+                <tr >
+                    <td> {{$index+1}} </td>
+                    <td>{{dv.name}}</td>
+                    <td> {{dv.description}} </td>
+                    <td>{{dv.type}}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEdit(dv)">
+                        Update
+                      </button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="delAnimal(dv)"> Danger  </button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div *ngIf="showEditForm" class="Update-form">
+    <h3>Chỉnh sửa động vật</h3>
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label">Tên</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="aniObj.name"
+          name="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Loài</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="aniObj.type"
+          name="description"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Mô tả</label>
+        <textarea type="text"
+        class="form-control"
+        id="type"
+        [(ngModel)]="aniObj.description"
+        rows="10"
+        name="type"></textarea>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-success" (click)="saveChanges()">
+            Lưu thay đổi
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="close()">
+            Hủy
+          </button>
+      </div>
+    </form>
+  </div>

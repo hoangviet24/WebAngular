@@ -1,0 +1,18 @@
+<div class="form-container">
+    <h2>Tạo động vật</h2>
+    <form action="#" method="post">
+        <div class="form-group">
+            <label for="name">Tên</label>
+            <input type="text" id="name" name="name" required [(ngModel)]="aniObj.name">
+        </div>
+        <div class="form-group">
+            <label for="message">Loài</label>
+            <input type="email" id="email" name="email" required [(ngModel)]="aniObj.type">
+        </div>
+        <div class="form-group">
+            <label for="email">Mô tả</label>
+            <textarea id="message" name="message" rows="4" required [(ngModel)]="aniObj.description"></textarea>
+        </div>
+        <a href="dongvat" class="nav-link"> <button (click)="postAni()" type="submit" class="submit-btn"> Submit </button></a>
+    </form>
+</div>
