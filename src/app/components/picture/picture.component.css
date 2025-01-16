@@ -1,0 +1,73 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.upload-form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form .form-label {
+  font-weight: bold;
+}
+
+.files-list {
+  margin-top: 30px;
+}
+
+.files-list .list-group-item {
+  padding: 15px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.files-list .file-name {
+  font-weight: bold;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.files-list .file-name:hover {
+  text-decoration: underline;
+}
+
+.preview {
+  text-align: center;
+}
+
+.preview img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.list-group-item {
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: #e9ecef;
+}

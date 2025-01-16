@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Upload and View Files</h1>
+    
+    <!-- Upload Form -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="h5 mb-0">Upload File</h2>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="fileInput" class="form-label">Select a file to upload:</label>
+          <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control" />
+        </div>
+        <button (click)="uploadFile()" [disabled]="!selectedFile" class="btn btn-success">
+          Upload
+        </button>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <!-- View Files -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="h5 mb-0 text-info">Available Files</h2>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let file of files" class="list-group-item d-flex justify-content-between align-items-center">
+            <span (click)="viewFile(file)" class="file-name" style="cursor: pointer;">
+              {{ file }}
+            </span>
+            <button (click)="deleteFile(file)" class="btn btn-danger btn-sm">
+              Delete
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Show Selected Image -->
+    <div *ngIf="imageSrc" class="card mt-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="h5 mb-0 text-primary">Preview</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closePreview()"></button>
+        </div>
+        <div class="card-body text-center">
+          <img [src]="imageSrc" alt="Selected Image" class="img-fluid" style="max-height: 400px;" />
+        </div>
+      </div>
+  </div>

@@ -20,17 +20,30 @@
                 <tr >
                     <td> {{$index+1}} </td>
                     <td>{{dv.name}}</td>
-                    <td> {{dv.description}} </td>
+                    <td>
+                      <span *ngIf="!showFullDescription[dv.id] && isDescriptionLong(dv.description)">
+                        {{ dv.description | slice: 0:200 }}... 
+                        <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Xem thêm</button>
+                      </span>
+                      <span *ngIf="showFullDescription[dv.id]">
+                        {{ dv.description }}
+                        <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Thu gọn</button>
+                      </span>
+                      <span *ngIf="!isDescriptionLong(dv.description)">
+                        {{ dv.description }}
+                      </span>
+                    </td>
                     <td>{{dv.type}}</td>
                     <td><button type="button" class="btn btn-primary" (click)="onEdit(dv)">
                         Update
                       </button></td>
-                    <td><button type="button" class="btn btn-danger" (click)="delAnimal(dv)"> Danger  </button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="delAnimal(dv)">Delete</button></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
 <div *ngIf="showEditForm" class="Update-form">
     <h3>Chỉnh sửa động vật</h3>
     <form>
@@ -52,6 +65,16 @@
           id="description"
           [(ngModel)]="aniObj.type"
           name="description"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Link Ảnh</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="aniObj.img"
+          name="img"
         />
       </div>
       <div class="mb-3">

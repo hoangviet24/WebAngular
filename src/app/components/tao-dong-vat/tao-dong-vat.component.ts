@@ -15,7 +15,8 @@ export class TaoDongVatComponent {
     "id": 0,
     "name":"",
     "description":"",
-    "type":""
+    "type":"",
+    "img":""
   }
 
   postAni(){
