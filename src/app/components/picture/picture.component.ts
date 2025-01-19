@@ -55,7 +55,7 @@ export class PictureComponent {
 
   // View file
   viewFile(fileName: string): void {
-    this.imageSrc = `https://localhost:7055/api/Animal/view-file?fileName=${fileName}`;
+    this.imageSrc = this.fileService.getdetailFile(fileName);
   }
    // Thêm tính năng xóa file
    deleteFile(fileName: string): void {

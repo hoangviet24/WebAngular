@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class FileService {
-  private apiUrl = 'https://localhost:7055/api/Animal'; 
+  private apiUrl = 'https://localhost:7055/api/Animal/view-file'; 
   selectedFile: File | null = null;
   constructor(private http: HttpClient) {}
 
@@ -19,11 +19,12 @@ export class FileService {
   
 
   // Lấy danh sách hoặc xem ảnh cụ thể
-  getFile(fileName?: string): Observable<any> {
-    const url = fileName 
-      ? this.apiUrl+'/view-file?fileName='+fileName
-      : this.apiUrl+'/view-file';
+  getFile(): Observable<any> {
+    const url =  this.apiUrl;
     return this.http.get(url);
+  }
+  getdetailFile(fileName: string): string {
+    return `https://localhost:7055/api/Animal/view-file?fileName=${fileName}`;
   }
   deleteFile(fileName: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete/${fileName}`);

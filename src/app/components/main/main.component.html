@@ -1,18 +1,45 @@
 <div class="wrap">
-    <form class="d-flex" role="search" style="margin-bottom: 20px;">
+    <form class="d-flex" role="search" >
         <input class="form-control me-4" type="search" placeholder="Tìm động vật" aria-label="Search" name="searchQuery" [(ngModel)]="searchQuery">
         <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()" >Tìm kiếm</button>
       </form>
-    <div class="d-flex">
-        @for (dv of animal; track $index) {
-            <div class="card" style="width: 18rem;">
-                <img [src]="dv.img" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title"> {{dv.name}} </h5>
-                  <p class="card-text">Mô tả: <br> {{dv.description}} </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-        }
-    </div>
+      <div class="d-flex flex-wrap ">
+        <div *ngFor="let dv of animal" class="card" >
+          <img [src]="dv.img" class="card-img-top" alt="Animal Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ dv.name }}</h5>
+            <p class="card-text">
+              <span *ngIf="!showFullDescription[dv.id] && isDescriptionLong(dv.description)">
+                {{ dv.description | slice: 0:200 }}... 
+                <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Xem thêm</button>
+              </span>
+              <span *ngIf="showFullDescription[dv.id]">
+                {{ dv.description }}
+                <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Thu gọn</button>
+              </span>
+              <span *ngIf="!isDescriptionLong(dv.description)">
+                {{ dv.description }}
+              </span>
+            </p>
+            <button class="btn btn-primary" (click)="onDetail(dv)">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ViewDetail" class="Detail">
+        <div class="detail-header">
+          <button type="button" (click)="close()" class="btn-close btn-close-color:white" aria-label="Close"></button>
+      </div>
+        <div class="card card-detail">
+          <img [src]="aniObj.img" class="card-img-top" alt="Animal Image">
+          <div class="card-body">
+            <h5 class="card-title">Tên: {{aniObj.name}} </h5>
+            <p  class="card-text">
+              Loài: {{aniObj.type}}
+            </p>
+            <p  class="card-text">
+              Mô tả: {{aniObj.description}}
+            </p>
+          </div>
+        </div>
+      </div>
 </div>

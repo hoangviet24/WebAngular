@@ -23,11 +23,11 @@ export class TaoDongVatComponent {
     this.http.post("https://localhost:7055/api/Animal/Add",this.aniObj).subscribe((res:any) =>{
       debugger;
       if(res){
-        alert("Create Success");
+        alert("Tạo thành công");
         this.router.navigate(['/']);
       }
       else{
-        alert("Failed")
+        alert("Tạo thất bại")
       }
     })
   }

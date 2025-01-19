@@ -2,3 +2,35 @@
     max-width: 1200px;
     margin: 50px auto;
 }
+.Detail {
+    position: fixed;
+    bottom: 10%;
+    left: 35%;
+    max-height: 80%; /* Giới hạn chiều cao để kích hoạt cuộn */
+    overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
+    overflow-x: hidden; /* Ẩn cuộn ngang nếu có */
+    background-color: white; /* Đặt màu nền để dễ nhìn */
+    padding: 0px 20px; /* Thêm khoảng cách bên trong */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
+    border-radius: 8px; /* Bo tròn các góc */
+}
+.card{
+    width: 22rem; margin: 10px
+}
+.card-detail{
+    width: 38rem;
+    margin: 10px;
+}
+.detail-header {
+    padding: 10px;
+    position: sticky;
+    top:0;
+    background-color: rgb(255, 255, 255);
+    z-index: 1;
+}
+.card .card-img-top{
+    transition: transform 0.3s ease;
+}
+.card-img-top:hover{
+    transform: scale(0.95);
+}

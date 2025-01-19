@@ -74,8 +74,8 @@ table tbody tr td {
     border-radius: 10px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     position:fixed; 
-    left: 30%;
-    bottom: 40%;
+    left: 25%;
+    bottom: 20%;
 }
 .btn-link {
     text-decoration: none;
