@@ -46,7 +46,7 @@
 
 <div *ngIf="showEditForm" class="Update-form">
     <h3>Chỉnh sửa động vật</h3>
-    <form>
+    <form #aniForm="ngForm" novalidate>
       <div class="mb-3">
         <label for="name" class="form-label">Tên</label>
         <input
@@ -55,44 +55,74 @@
           id="name"
           [(ngModel)]="aniObj.name"
           name="name"
+          required
+          #name="ngModel"
         />
+        <div *ngIf="name.invalid && name.touched" class="error-message">
+          Tên không được để trống!
+        </div>
       </div>
+    
       <div class="mb-3">
-        <label for="description" class="form-label">Loài</label>
+        <label for="type" class="form-label">Loài</label>
         <input
           type="text"
           class="form-control"
-          id="description"
+          id="type"
           [(ngModel)]="aniObj.type"
-          name="description"
+          name="type"
+          required
+          #type="ngModel"
         />
+        <div *ngIf="type.invalid && type.touched" class="error-message">
+          Loài không được để trống!
+        </div>
       </div>
+    
       <div class="mb-3">
-        <label for="description" class="form-label">Link Ảnh</label>
+        <label for="img" class="form-label">Link Ảnh</label>
         <input
           type="text"
           class="form-control"
-          id="description"
+          id="img"
           [(ngModel)]="aniObj.img"
           name="img"
+          required
+          #img="ngModel"
         />
+        <div *ngIf="img.invalid && img.touched" class="error-message">
+          Link ảnh không được để trống!
+        </div>
       </div>
+    
       <div class="mb-3">
-        <label for="type" class="form-label">Mô tả</label>
-        <textarea type="text"
-        class="form-control"
-        id="type"
-        [(ngModel)]="aniObj.description"
-        rows="10"
-        name="type"></textarea>
+        <label for="description" class="form-label">Mô tả</label>
+        <textarea
+          class="form-control"
+          id="description"
+          [(ngModel)]="aniObj.description"
+          name="description"
+          rows="10"
+          required
+          #description="ngModel"
+        ></textarea>
+        <div *ngIf="description.invalid && description.touched" class="error-message">
+          Mô tả không được để trống!
+        </div>
       </div>
+    
       <div class="d-flex justify-content-between">
-        <button type="button" class="btn btn-success" (click)="saveChanges()">
-            Lưu thay đổi
-          </button>
-          <button type="button" class="btn btn-secondary" (click)="close()">
-            Hủy
-          </button>
+        <button 
+          type="button" 
+          class="btn btn-success" 
+          (click)="saveChanges()"
+          [disabled]="aniForm.invalid">
+          Lưu thay đổi
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Hủy
+        </button>
       </div>
     </form>
+    
   </div>

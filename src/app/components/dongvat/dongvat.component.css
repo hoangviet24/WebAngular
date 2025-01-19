@@ -1,6 +1,6 @@
 /* Định dạng phần bọc */
 .wrap {
-    max-width: 1200px;
+    max-width: 50%;
     margin: 50px auto;
     padding: 20px;
     background-color: #2d3436;

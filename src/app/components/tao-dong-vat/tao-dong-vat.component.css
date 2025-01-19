@@ -54,3 +54,11 @@ body {
 .submit-btn:hover {
     background-color: #81ecec;
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.form-control.ng-invalid.ng-touched {
+    border-color: red;
+}
