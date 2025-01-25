@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component ,OnInit,ViewChild} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-dongvat',
   imports: [FormsModule,CommonModule],

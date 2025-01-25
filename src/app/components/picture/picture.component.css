@@ -1,9 +1,3 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .upload-form {
   background-color: #f8f9fa;
   padding: 20px;
@@ -32,7 +26,7 @@
 
 .files-list .file-name {
   font-weight: bold;
-  color: #007bff;
+  color: #a5abb1;
   cursor: pointer;
 }
 

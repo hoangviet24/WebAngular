@@ -1,12 +1,12 @@
 /* Định dạng phần bọc */
-.wrap {
+/* .wrap {
     max-width: 50%;
     margin: 50px auto;
     padding: 20px;
     background-color: #2d3436;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+} */
 
 /* Nút button */
 button.btn {
@@ -20,7 +20,13 @@ button.btn {
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
+@media (max-width:1150px) {
+    .btn-action p{
+        font-size: 10px;
+        width: 50%;
+        height: 10px;
+    }
+  }
 button.btn-primary:hover {
     background-color: #74b9ff;
     transform: translateY(-3px);

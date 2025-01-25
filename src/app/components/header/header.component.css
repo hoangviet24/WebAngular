@@ -5,6 +5,12 @@
     max-width: 50%;
     margin: 0 auto;
 }
+@media (max-width:992px) {
+    .container-fluid{
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
 .navbar-brand, .nav-link {
     color: #fff;
 }

@@ -40,13 +40,13 @@ export class PictureComponent {
     if (this.selectedFile) {
       this.fileService.uploadFile(this.selectedFile).subscribe({
         next: (response) => {
-          alert('File uploaded successfully!');
+          alert('Up thành công, đang quay về trang chủ!');
           this.selectedFile = null;
           this.loadFiles();
         },
         error: (error) => {
           console.error('Error uploading file:', error);
-          alert('Failed to upload file.');
+          alert('File lớn nhất là 5MB.');
         },
       });
     }
