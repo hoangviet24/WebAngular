@@ -1,1 +1,27 @@
-<p>register works!</p>
+<div class="wrap">
+    <div class="card p-4 shadow-lg">
+        <h3 class="text-center mb-4">Đăng ký</h3>
+        <div class="form-floating mb-3">
+          <input type="email" [(ngModel)] = "email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3 position-relative">
+          <input [type]="passwordFieldType" [(ngModel)]="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+          <button type="button" style="border: none; background-color: rgba(255, 255, 255, 0);" class="position-absolute end-0 top-50 translate-middle-y" (click)="togglePasswordVisibility()">
+            <i [ngClass]="passwordIconClass"></i>
+          </button>
+        </div>
+        <div class="form-floating mb-3 position-relative">
+          <input [type]="confirmPasswordFieldType" [(ngModel)] = "confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password">
+          <label for="floatingConfirmPassword">Confirm Password</label>
+          <button type="button" style="border: none; background-color: rgba(255, 255, 255, 0);" class="position-absolute end-0 top-50 translate-middle-y" (click)="toggleConfirmPasswordVisibility()">
+            <i [ngClass]="confirmPasswordIconClass"></i>
+          </button>
+        </div>
+        <button class="btn btn-primary w-100 mb-3" (click)="register()">Đăng ký</button>
+        <div class="text-center">
+          <p>Đã có tài khoản? <a href="login">Nhấp vào đây để đăng nhập</a></p>
+        </div>
+      </div>
+</div>

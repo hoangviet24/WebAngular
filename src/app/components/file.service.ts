@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { User } from './User';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class FileService {
   private apiUrlImage = 'https://localhost:7055/api/Animal'; 
   private apiUrlLogin = 'https://localhost:7055/api/User/Login';
+  private apiUrlRegister = 'https://localhost:7055/api/User/Post';
   selectedFile: File | null = null;
   constructor(private http: HttpClient) {}
 
@@ -15,9 +17,8 @@ export class FileService {
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.apiUrlImage}/Post-file`, formData ,{ responseType: 'text' }); // URL phải khớp với backend
+    return this.http.post(`${this.apiUrlImage}/Post-file`, formData ,{ responseType: 'text' }); 
   }
-  
 
   // Lấy danh sách hoặc xem ảnh cụ thể
   getFile(): Observable<any> {
@@ -31,8 +32,12 @@ export class FileService {
     return this.http.delete(`${this.apiUrlImage}/delete/${fileName}`);
   }
   //Login
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<User> {
     const url = `${this.apiUrlLogin}?userName=${username}&password=${password}`;
-    return this.http.get(url);
+    return this.http.get<User>(url);
+  }
+  register(user: User): Observable<any> {
+    const url = this.apiUrlRegister;
+    return this.http.post(url, user);
   }
 }

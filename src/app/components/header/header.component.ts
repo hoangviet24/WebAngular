@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthServiceComponent } from '../auth-service/auth-service.component';
 
@@ -12,12 +12,13 @@ import { AuthServiceComponent } from '../auth-service/auth-service.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private http: HttpClient, private authService: AuthServiceComponent){}
-  username: string |null = null;
-    // Danh sách động vật
-    animal: any[] = [];
-    // Dữ liệu tìm kiếm
-    searchQuery: string = '';
+  username: string | null = null;
+  isAdmin: boolean = false;
+  animal: any[] = [];
+  searchQuery: string = '';
+
+  constructor(private http: HttpClient, private authService: AuthServiceComponent) {}
+
   getAnimal(): Observable<string[]> {
     return this.http
       .get<string[]>('https://localhost:7055/api/Animal/GetAll?name=' + this.searchQuery)
@@ -25,9 +26,15 @@ export class HeaderComponent {
         this.animal = result;
       }));
   }
+
   ngOnInit(): void {
     this.authService.username$.subscribe(username => {
       this.username = username;
+      console.log('Username:', this.username); // Debugging
+    });
+    this.authService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+      console.log('Is Admin:', this.isAdmin); // Debugging
     });
     this.authService.loadUsername(); // Load tên người dùng từ localStorage khi khởi động
   }

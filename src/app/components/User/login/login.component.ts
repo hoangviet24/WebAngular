@@ -3,6 +3,7 @@ import { FileService } from '../../file.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthServiceComponent } from '../../auth-service/auth-service.component';
+import { User } from '../../User';
 
 @Component({
   selector: 'app-login',
@@ -27,14 +28,19 @@ export class LoginComponent {
     }
   }
   Login() {
+    if (!this.email || !this.password) {
+      alert('Email và mật khẩu không được để trống');
+      return;
+    }
     this.fileServices.login(this.email, this.password).subscribe(
-      response => {
+      (response: User) => {
         if (response) { // Kiểm tra nếu có phản hồi từ API
           alert('Login Successful');
-          this.authService.setUsername(this.email); // Lưu tên người dùng vào AuthService
+          console.log('Login response:', response); // Debugging
+          this.authService.setUsername(response.userName, response.role); // Lưu tên người dùng và vai trò vào AuthService
           this.router.navigate(['/']);
         } else {
-          alert('Login failed: Invalid credentials');
+          alert(`Login failed: ${response}`);
         }
       },
       error => {

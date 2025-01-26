@@ -11,11 +11,6 @@
             <p class="card-text">
               <span *ngIf="!showFullDescription[dv.id] && isDescriptionLong(dv.description)">
                 {{ dv.description | slice: 0:200 }}... 
-                <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Xem thêm</button>
-              </span>
-              <span *ngIf="showFullDescription[dv.id]">
-                {{ dv.description }}
-                <button class="btn btn-link p-0" (click)="toggleDescription(dv.id)">Thu gọn</button>
               </span>
               <span *ngIf="!isDescriptionLong(dv.description)">
                 {{ dv.description }}

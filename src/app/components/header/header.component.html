@@ -7,20 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="dongvat">Động Vật</a>
+          <a class="nav-link" *ngIf="isAdmin" href="dongvat">Động Vật</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" target="_blank" href="picture">Ảnh</a>
+          <a class="nav-link" *ngIf="isAdmin" target="_blank" href="picture">Ảnh</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item" *ngIf="!username">
           <a class="btn btn-outline-light" href="login" role="button">Người dùng <i class="fa-solid fa-user"></i></a>
         </li>
-        <!-- <li class="nav-item" *ngIf="username">
-          <a class="btn btn-outline-light" href="#" role="button">{{ username }} <i class="fa-solid fa-user"></i></a>
-          <button class="btn btn-outline-light" (click)="logout()">Logout</button>
-        </li> -->
         <div class="btn-group" *ngIf="username">
           <button type="button" class="btn btn-primary"> {{username}} </button>
           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
