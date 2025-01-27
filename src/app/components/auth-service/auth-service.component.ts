@@ -15,30 +15,37 @@ export class AuthServiceComponent {
   private isAdminSubject = new BehaviorSubject<boolean>(false);
   username$ = this.usernameSubject.asObservable();
   isAdmin$ = this.isAdminSubject.asObservable();
-  setUsername(username: string, isAdmin: boolean) {
-    console.log('Setting username:', username); // Debugging
-    console.log('Setting isAdmin:', isAdmin); // Debugging
+
+  setUsername(username: string, isAdmin: boolean, rememberMe: boolean = false) {
     this.usernameSubject.next(username);
     this.isAdminSubject.next(isAdmin);
-    localStorage.setItem('username', username);
-    localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
+    sessionStorage.setItem('username', username);
+    sessionStorage.setItem('isAdmin', JSON.stringify(isAdmin));
+    if (rememberMe) {
+      localStorage.setItem('username', username);
+      localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
+    }
   }
 
   clearUsername() {
     this.usernameSubject.next(null);
     this.isAdminSubject.next(false);
-    localStorage.removeItem('isAdmin')
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('isAdmin');
     localStorage.removeItem('username');
+    localStorage.removeItem('isAdmin');
   }
+
   loadUsername() {
-    const username = localStorage.getItem('username');
-    const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || 'false');
-    console.log('Loaded username:', username); // Debugging
-    console.log('Loaded isAdmin:', isAdmin); // Debugging
+    let username = sessionStorage.getItem('username');
+    let isAdmin = JSON.parse(sessionStorage.getItem('isAdmin') || 'false');
+    if (!username) {
+      username = localStorage.getItem('username');
+      isAdmin = JSON.parse(localStorage.getItem('isAdmin') || 'false');
+    }
     if (username) {
       this.usernameSubject.next(username);
       this.isAdminSubject.next(isAdmin);
     }
   }
 }
-

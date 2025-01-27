@@ -17,6 +17,7 @@ export class LoginComponent {
   password: string = '';
   passwordFieldType: string = 'password';
   passwordIconClass: string = 'fa-solid fa-eye-slash';
+  rememberMe: boolean = false;
 
   togglePasswordVisibility() {
     if (this.passwordFieldType === 'password') {
@@ -37,7 +38,7 @@ export class LoginComponent {
         if (response) { // Kiểm tra nếu có phản hồi từ API
           alert('Login Successful');
           console.log('Login response:', response); // Debugging
-          this.authService.setUsername(response.userName, response.role); // Lưu tên người dùng và vai trò vào AuthService
+          this.authService.setUsername(response.userName, response.role, this.rememberMe); // Lưu tên người dùng và vai trò vào AuthService
           this.router.navigate(['/']);
         } else {
           alert(`Login failed: ${response}`);

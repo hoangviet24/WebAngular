@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FileService } from '../file.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-picture',
@@ -12,10 +13,28 @@ export class PictureComponent {
   selectedFile: File | null = null;
   files: string[] = [];
   imageSrc: string | null = null;
-
-  constructor(private fileService: FileService) {}
+  username: string | null = null;
+  isAdmin: boolean = false;
+  constructor(private fileService: FileService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.username = params['username'];
+      this.isAdmin = params['isAdmin'] === 'true';
+
+      // Lưu thông tin vào sessionStorage
+      if (this.username) {
+        sessionStorage.setItem('username', this.username);
+        sessionStorage.setItem('isAdmin', JSON.stringify(this.isAdmin));
+      }
+    });
+
+    // Kiểm tra và tải thông tin từ sessionStorage nếu cần
+    if (!this.username) {
+      this.username = sessionStorage.getItem('username');
+      this.isAdmin = JSON.parse(sessionStorage.getItem('isAdmin') || 'false');
+    }
+
     this.loadFiles();
   }
 

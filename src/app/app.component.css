@@ -16,14 +16,13 @@ html, body {
       font-size: 90%;
     }
   }
-  @media (max-width:1150px) {
+  @media (max-width:1200px) {
     .content{
       max-width: 100%;
     }
   }
   @media (max-width:960px) {
     .content{
-      size: 50% ;
       max-width: 100%;
     }
   }
