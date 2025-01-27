@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthServiceComponent } from '../auth-service/auth-service.component';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent {
 
   getAnimal(): Observable<string[]> {
     return this.http
-      .get<string[]>('https://localhost:7055/api/Animal/GetAll?name=' + this.searchQuery)
+      .get<string[]>( JSON.stringify( 'https://localhost:7055/api/Animal/GetAll?name=' + this.searchQuery))
       .pipe(tap((result: string[]) => {
         this.animal = result;
       }));
@@ -38,7 +39,12 @@ export class HeaderComponent {
     });
     this.authService.loadUsername(); // Load tên người dùng từ localStorage khi khởi động
   }
-
+  getDisplayUsername(): string {
+    if (this.username && this.username.length > 10) {
+      return this.username.substring(0, 10) + '...';
+    }
+    return this.username || '';
+  }
   logout() {
     this.authService.clearUsername(); // Xóa tên người dùng khỏi AuthService và localStorage khi đăng xuất
   }

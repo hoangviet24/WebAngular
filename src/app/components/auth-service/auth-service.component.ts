@@ -48,4 +48,5 @@ export class AuthServiceComponent {
       this.isAdminSubject.next(isAdmin);
     }
   }
+  
 }

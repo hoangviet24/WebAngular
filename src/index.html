@@ -12,5 +12,16 @@
 </head>
 <body>
   <app-root></app-root>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '623730263610993', // Thay YOUR_FACEBOOK_APP_ID bằng App ID của bạn
+        cookie: true,
+        xfbml: true,
+        version: 'v15.0' // Chọn version phù hợp (mới nhất)
+      });
+    };
+  </script>
 </body>
 </html>
