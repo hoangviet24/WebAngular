@@ -45,12 +45,12 @@ export class LoginComponent implements OnInit {
     this.fileServices.login(this.email, this.password).subscribe(
       (response: User) => {
         if (response) { // Kiểm tra nếu có phản hồi từ API
-          alert('Login Successful');
+          alert('Đăng nhập thành công');
           console.log('Login response:', response); // Debugging
           this.authService.setUsername(response.userName, response.role, this.rememberMe); // Lưu tên người dùng và vai trò vào AuthService
           this.router.navigate(['/']);
         } else {
-          alert(`Login failed: ${response}`);
+          alert('Thông tin hoặc mật khẩu không chính xác');
         }
       },
       error => {

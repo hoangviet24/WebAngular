@@ -31,3 +31,7 @@
 .card-img-top:hover{
     transform: scale(0.95);
 }
+.obj{
+    display: flex;
+    flex-wrap: wrap;
+}

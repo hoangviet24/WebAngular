@@ -55,7 +55,7 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error => {
-        alert('Registration Failed: ' + JSON.stringify(error));
+        alert('Lỗi: Không thể tạo tài khoản ngay lúc này');
       }
     );
   }

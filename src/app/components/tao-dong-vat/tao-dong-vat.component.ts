@@ -25,7 +25,7 @@ export class TaoDongVatComponent {
       debugger;
       if(res){
         alert("Tạo thành công");
-        this.router.navigate(['/']);
+        this.router.navigate(['/dongvat']);
       }
       else{
         alert("Tạo thất bại")

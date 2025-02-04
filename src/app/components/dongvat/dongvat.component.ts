@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component ,OnInit,ViewChild} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-dongvat',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, ],
   templateUrl: './dongvat.component.html',
   styleUrls: ['./dongvat.component.css'],
 })
@@ -20,12 +19,53 @@ export class DongvatComponent implements OnInit {
     type: '',
     img:""
   };
+  page = 1;
+  pageSize = 3;
+  totalRecord : number = 0
   showFullDescription: { [id: string]: boolean } = {}; // Lưu trạng thái mô tả mở rộng
   // Phương thức kiểm tra mô tả dài
   isDescriptionLong(description: string): boolean {
     return description.length > 200;
   }
-
+  getPageNumber() {
+    const totalPages = this.getValue();
+    const visiblePages = 5; // Số trang hiển thị (có thể tùy chỉnh)
+    const page = this.page;
+  
+    let pages: any[] = [];
+  
+    if (totalPages <= visiblePages) {
+      // Nếu tổng số trang ít hơn số trang cần hiển thị, hiển thị hết
+      pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      // Luôn hiển thị trang đầu tiên
+      pages.push(1);
+  
+      // Nếu trang hiện tại > 3, thêm dấu "..."
+      if (page > 3) {
+        pages.push("...");
+      }
+  
+      // Thêm các trang xung quanh trang hiện tại
+      let start = Math.max(2, page - 1);
+      let end = Math.min(totalPages - 1, page + 1);
+  
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+  
+      // Nếu trang hiện tại < totalPages - 2, thêm dấu "..."
+      if (page < totalPages - 2) {
+        pages.push("...");
+      }
+  
+      // Luôn hiển thị trang cuối cùng
+      pages.push(totalPages);
+    }
+  
+    return pages;
+  }
+  
   // Phương thức chuyển đổi trạng thái hiển thị
   toggleDescription(id: string): void {
     this.showFullDescription[id] = !this.showFullDescription[id];
@@ -35,13 +75,30 @@ export class DongvatComponent implements OnInit {
   // Dữ liệu tìm kiếm
   searchQuery: string = '';
   showEditForm = false;
+  ngOnInit() {
+    this.getAnimal(); // Lấy danh sách động vật khi component được khởi tạo
+    this.getTotal();
+  }
   // Lấy danh sách động vật
   getAnimal() {
     this.http
-      .get('https://localhost:7055/api/Animal/GetAll?name='+this.searchQuery)
+      .get(`https://localhost:7055/api/Animal/GetAll?name=${this.searchQuery}&page=${this.page}&pageSize=${this.pageSize}`)
       .subscribe((result: any) => {
         this.animal = result;
       });
+  }
+  getTotal(){
+    this.http.get('https://localhost:7055/api/Animal/GetTotal').subscribe((Res:any)=>{
+      this.totalRecord = Res
+    })
+  }
+  getValue(){
+    return  Math.ceil(this.totalRecord/this.pageSize)
+  }
+  
+  onPageChange(pageNo: number){
+    this.page = pageNo;
+    this.getAnimal()
   }
   getItems(): any[] {
     // Giả lập dữ liệu
@@ -96,7 +153,5 @@ export class DongvatComponent implements OnInit {
     this.showEditForm = false; // Ẩn form chỉnh sửa
   }
   // Hàm khởi tạo
-  ngOnInit() {
-    this.getAnimal(); // Lấy danh sách động vật khi component được khởi tạo
-  }
+  
 }
