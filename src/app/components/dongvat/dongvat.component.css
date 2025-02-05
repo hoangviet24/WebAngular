@@ -1,13 +1,3 @@
-/* Định dạng phần bọc */
-/* .wrap {
-    max-width: 50%;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #2d3436;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
-
 /* Nút button */
 button.btn {
     display: inline-block;
@@ -73,16 +63,6 @@ table tbody tr:hover {
 table tbody tr td {
     border-bottom: 1px solid #636e72;
 }
-.Update-form{
-    min-width: 960px;
-    background-color: #2d3436;
-    padding: 20px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    position:fixed; 
-    left: 25%;
-    bottom: 20%;
-}
 .btn-link {
     text-decoration: none;
     cursor: pointer;
@@ -91,4 +71,10 @@ table tbody tr td {
     text-decoration: underline;
     color: #007bff;
   }
-  
+  .form-label {
+    color: black;
+  }
+  .form{
+    background-color:#c8d6e5;
+    margin-top: 100px;
+  }

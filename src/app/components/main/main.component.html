@@ -1,7 +1,7 @@
-<div class="wrap">
+<div class="container py-4">
     <form class="d-flex" role="search" >
         <input class="form-control me-4" type="search" placeholder="Tìm động vật" aria-label="Search" name="searchQuery" [(ngModel)]="searchQuery">
-        <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()" >Tìm kiếm</button>
+        <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()" ><i class="fa-solid fa-magnifying-glass"></i></button>
       </form>
       <div class="obj">
         <div *ngFor="let dv of animal" class="card" >
@@ -12,7 +12,7 @@
               <span *ngIf="!showFullDescription[dv.id] && isDescriptionLong(dv.description)">
                 {{ dv.description | slice: 0:200 }}... 
               </span>
-              <span *ngIf="!isDescriptionLong(dv.description)">
+              <span style="white-space: pre-line;" *ngIf="!isDescriptionLong(dv.description)">
                 {{ dv.description }}
               </span>
             </p>
@@ -20,19 +20,19 @@
           </div>
         </div>
       </div>
-      <nav style="cursor: pointer;">
+      <nav class="pagination-container" style="cursor: pointer;">
         <ul class="pagination">
-          <li class="page-item" [class.disabled]="page == 1">
-            <a class="page-link" (click)="onPageChange(page - 1)">Previous</a>
-          </li>
-          <li class="page-item" [class.active]="pageNumber == page" *ngFor="let pageNumber of getPageNumber()">
-            <a class="page-link">{{pageNumber}}</a>
-          </li>
-          <li class="page-item" [class.disabled]="page == getValue()">
-            <a class="page-link" (click)="onPageChange(page + 1)">Next</a>
-          </li>
+            <li class="page-item" [class.disabled]="page == 1">
+                <a class="page-link" (click)="onPageChange(page - 1)">Previous</a>
+            </li>
+            <li class="page-item" [class.active]="pageNumber == page" *ngFor="let pageNumber of getPageNumber()">
+                <a class="page-link">{{pageNumber}}</a>
+            </li>
+            <li class="page-item" [class.disabled]="page == getValue()">
+                <a class="page-link" (click)="onPageChange(page + 1)">Next</a>
+            </li>
         </ul>
-      </nav>
+    </nav>
       <div *ngIf="ViewDetail" class="Detail">
         <div class="detail-header">
           <button type="button" (click)="close()" class="btn-close btn-close-color:white" aria-label="Close"></button>
@@ -44,7 +44,7 @@
             <p  class="card-text">
               Loài: {{aniObj.type}}
             </p>
-            <p  class="card-text">
+            <p style="white-space: pre-line;"  class="card-text">
               Mô tả: {{aniObj.description}}
             </p>
           </div>

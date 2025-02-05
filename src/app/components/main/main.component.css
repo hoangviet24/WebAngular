@@ -3,6 +3,7 @@
     position: fixed;
     bottom: 10%;
     left: 35%;
+    z-index: 9999;
     max-height: 80%; /* Giới hạn chiều cao để kích hoạt cuộn */
     overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
     overflow-x: hidden; /* Ẩn cuộn ngang nếu có */
@@ -34,4 +35,9 @@
 .obj{
     display: flex;
     flex-wrap: wrap;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

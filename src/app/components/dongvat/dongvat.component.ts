@@ -121,6 +121,7 @@ export class DongvatComponent implements OnInit {
         .subscribe(
           (response) => {
             alert('Đã xóa động vật thành công!');
+            
             this.getAnimal(); // Cập nhật lại danh sách động vật
           },
           (error) => {

@@ -1,7 +1,7 @@
 <div class="container py-4">
     <form class="d-flex align-items-center gap-3 mb-4" role="search">
         <input class="form-control shadow-sm" type="search" placeholder="Tìm động vật" aria-label="Search" name="searchQuery" [(ngModel)]="searchQuery">
-        <button class="btn btn-primary px-4" type="submit" (click)="getAnimal()">Tìm kiếm</button>
+        <button class="btn btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()" ><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     
     <button type="button" class="btn btn-success mb-3"> 
@@ -28,7 +28,7 @@
                                 {{ dv.description | slice: 0:150 }}... 
                                 <button class="btn btn-link text-primary" (click)="toggleDescription(dv.id)">Xem thêm</button>
                             </span>
-                            <span *ngIf="showFullDescription[dv.id]">
+                            <span style="white-space: pre-line;" *ngIf="showFullDescription[dv.id]">
                                 {{ dv.description }}
                                 <button class="btn btn-link text-danger" (click)="toggleDescription(dv.id)">Thu gọn</button>
                             </span>
@@ -64,10 +64,10 @@
     </nav>
 </div>
 
-<div *ngIf="showEditForm" class="modal d-block bg-dark bg-opacity-50">
+<div *ngIf="showEditForm" class="modal d-block ">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content p-4">
-            <h3 class="mb-3">Chỉnh sửa động vật</h3>
+        <div class="modal-content p-4 form">
+            <h3 class="mb-3 text-dark">Chỉnh sửa động vật</h3>
             <form #aniForm="ngForm" novalidate>
                 <div class="mb-3">
                     <label class="form-label">Tên</label>
