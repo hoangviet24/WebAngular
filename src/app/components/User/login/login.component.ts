@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthServicesService } from '../../../services/auth-services.service';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../User';
-import { environment } from '../../../../environment/environment';
 
 declare let FB: any;
 
@@ -26,6 +25,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthServicesService
   ) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   togglePasswordVisibility() {
     if (this.passwordFieldType === 'password') {
@@ -59,17 +61,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  loginWithFacebook(): void {
-    FB.login((response: any) => {
-      if (response.status === 'connected') {
-        console.log('Logged in:', response);
-        this.getUserInfo();
-      } else {
-        console.error('Login failed:', response);
-      }
-    }, { scope: 'public_profile,email' }); // Yêu cầu quyền truy cập thông tin cơ bản và email
-  }
-
   getUserInfo(): void {
     FB.api('/me', { fields: 'id,name,email' }, (response: any) => {
       console.log('User Info:', response);
@@ -78,16 +69,5 @@ export class LoginComponent implements OnInit {
       // Điều hướng đến trang chủ
       this.router.navigate(['/']);
     });
-  }
-  ngOnInit(): void {
-    // Khởi tạo Facebook SDK
-    (window as any).fbAsyncInit = () => {
-      FB.init({
-        appId: environment.facebookAppId, // Sử dụng biến môi trường
-        cookie: true,
-        xfbml: true,
-        version: 'v15.0' // Chọn version phù hợp (mới nhất)
-      });
-    };
   }
 }
