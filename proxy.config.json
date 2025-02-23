@@ -1,7 +1,11 @@
 {
     "/api": {
       "target": "https://localhost:7055",
-      "secure": false,
-      "changeOrigin": true
+      "secure": true,
+      "changeOrigin": true, 
+        "logLevel": "debug",
+        "rejectUnauthorzied": true, 
+        "strictSSL": true,       
+        "withCredentials": true    
     }
   }

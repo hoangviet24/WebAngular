@@ -1,0 +1,196 @@
+<div class="search bg-dark">
+    <form class="d-flex " role="search">
+        <input class="form-control me-4" type="search" (input)="getAnimal()" placeholder="Tìm động vật"
+            aria-label="Search" name="searchQuery" [(ngModel)]="searchQuery">
+        <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="getAnimal()"><i
+                class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+</div>
+<div class="container py-4">
+    <button type="button" class="btn btn-success mb-3" (click)="onCreate()">
+        Tạo động vật
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th style="width: 15%;">Hình ảnh</th>
+                    <th style="width: 15%;">Tên</th>
+                    <th style="width: 40%;">Mô tả</th>
+                    <th style="width: 15%;">Loài</th>
+                    <th style="width: 15%;">Cập nhật</th>
+                    <th style="width: 15%;">Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (dv of animal; track $index) {
+                <tr>
+                    <td> {{$index +1}} </td>
+                    <td> <img [src]="dv.img" style="border-radius: 5px;" width="100px" alt=""></td>
+                    <td>{{dv.name}}</td>
+                    <td>
+                        <span *ngIf="!showFullDescription[dv.id] && isDescriptionLong(dv.description)">
+                            {{ dv.description | slice: 0:150 }}...
+                            <button class="btn btn-link text-primary" (click)="onDetail(dv)">Xem thêm</button>
+                        </span>
+                        <span *ngIf="!isDescriptionLong(dv.description)">{{ dv.description }}</span>
+                    </td>
+                    <td>{{dv.type}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning text-white" (click)="onEdit(dv)">
+                            Cập nhật
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="delAnimal(dv)">Xóa</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav class="mt-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="page == 1">
+                <a class="page-link" (click)="onPageChange(page-1)">Trước</a>
+            </li>
+            <li class="page-item" [class.active]="pageNumber == page" *ngFor="let pageNumber of getPageNumber()">
+                <a class="page-link" (click)="onPageChange(pageNumber)">{{pageNumber}}</a>
+            </li>
+            <li class="page-item" [class.disabled]="page == getValue()">
+                <a class="page-link" (click)="onPageChange(page+1)">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- Tạo động vật -->
+<div *ngIf="showCreateForm" class="modal d-block">
+    <div class="modal-dialog modal-lg text-dark">
+        <div class="modal-content p-4 form">
+            <h2>Tạo động vật</h2>
+            <form #aniForm="ngForm" (ngSubmit)="postAni()" novalidate>
+                <div class="form-group">
+                    <label for="name">Tên</label>
+                    <input type="text" id="name" name="name" required [(ngModel)]="aniObj.name" #name="ngModel"
+                        class="form-control" />
+                    <div *ngIf="name.invalid && name.touched" class="error-message">
+                        Tên không được để trống!
+                    </div>
+                </div>
+                <div class="form-group" style="position: relative;">
+                    <label for="type">Loài</label>
+                    <input type="text" id="type" name="type" required [(ngModel)]="aniObj.type"
+                        (input)="filterOptions()" (focus)="showDropdown = true" (blur)="hideDropdown()"
+                        class="form-control" />
+
+                    <!-- Dropdown list -->
+                    <ul class="dropdown-list" *ngIf="showDropdown">
+                        <li *ngFor="let option of filteredOptions" (mousedown)="selectOption(option)">
+                            {{ option }}
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="img">Link ảnh</label>
+                    <input type="text" id="img" name="img" required [(ngModel)]="aniObj.img" #img="ngModel"
+                        class="form-control" />
+                    <div *ngIf="img.invalid && img.touched" class="error-message">
+                        Link ảnh không được để trống!
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea id="description" name="description" rows="4" required [(ngModel)]="aniObj.description"
+                        #description="ngModel" class="form-control"></textarea>
+                    <div *ngIf="description.invalid && description.touched" class="error-message">
+                        Mô tả không được để trống!
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-success" [disabled]="aniForm.invalid" (click)="postAni()">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="close()">Hủy</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Update -->
+<div *ngIf="showEditForm" class="modal d-block ">
+    <div class="modal-dialog modal-lg text-dark">
+        <div class="modal-content p-4 form">
+            <h3 class="mb-3 text-dark">Chỉnh sửa động vật</h3>
+            <form #aniForm="ngForm" novalidate>
+                <div class="mb-3">
+                    <label class="form-label">Tên</label>
+                    <input type="text" class="form-control" [(ngModel)]="aniObj.name" name="name" required
+                        #name="ngModel">
+                    <div *ngIf="name.invalid && name.touched" class="text-danger">Tên không được để trống!</div>
+                </div>
+
+                <div class="form-group" style="position: relative;">
+                    <label for="type">Loài</label>
+                    <input type="text" id="type" name="type" required [(ngModel)]="aniObj.type"
+                        (input)="filterOptions()" (focus)="showDropdown = true" (blur)="hideDropdown()"
+                        class="form-control" />
+
+                    <!-- Dropdown list -->
+                    <ul class="dropdown-list" *ngIf="showDropdown">
+                        <li *ngFor="let option of filteredOptions" (mousedown)="selectOption(option)">
+                            {{ option }}
+                        </li>
+                    </ul>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Link Ảnh</label>
+                    <input type="text" class="form-control" [(ngModel)]="aniObj.img" name="img" required #img="ngModel">
+                    <div *ngIf="img.invalid && img.touched" class="text-danger">Link ảnh không được để trống!</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea class="form-control" [(ngModel)]="aniObj.description" name="description" rows="5" required
+                        #description="ngModel"></textarea>
+                    <div *ngIf="description.invalid && description.touched" class="text-danger">Mô tả không được để
+                        trống!</div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-success" (click)="saveChanges()"
+                        [disabled]="aniForm.invalid">Lưu</button>
+                    <button type="button" class="btn btn-secondary" (click)="close()">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Detail -->
+<div *ngIf="ViewDetail" class="Detail">
+    <div class="detail-header">
+        <button type="button" (click)="close()" class="btn-close btn-close-color:white" aria-label="Close"></button>
+    </div>
+    <div class="card card-detail">
+        <img [src]="aniObj.img" height="100%" width="100%" class="card-img-top" alt="Animal Image">
+        <div class="card-body-detail">
+            <h5 class="card-title">Tên: {{aniObj.name}} </h5>
+            <p class="card-text">
+                Loài: {{aniObj.type}}
+            </p>
+            <p style="white-space: pre-line;" class="card-text">
+                Mô tả: {{aniObj.description}}
+            </p>
+        </div>
+    </div>
+</div>

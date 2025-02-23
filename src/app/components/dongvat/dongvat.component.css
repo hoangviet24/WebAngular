@@ -1,80 +1,146 @@
-/* Nút button */
-button.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    cursor: pointer;
+.search form{
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
 }
-@media (max-width:1150px) {
-    .btn-action p{
-        font-size: 10px;
-        width: 50%;
-        height: 10px;
-    }
-  }
-button.btn-primary:hover {
-    background-color: #74b9ff;
-    transform: translateY(-3px);
+.search{
+   position: sticky;
+   left: 25%;
+   top: 0;
+   z-index: 100;
 }
-button.btn-danger:hover {
-    background-color: #ff7d74;
-    transform: translateY(-3px);
+.back-to-top {
+  position: fixed;
+  bottom: 20%;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
-button.btn a {
-    text-decoration: none;
-    color: #fff;
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Bảng table */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
+.Detail {
+   position: fixed;
+   float: left;
+   bottom: 10%;
+   left: 50%;
+   z-index: 9999;
+   transform: translateX(-50%); 
+   max-height: 80vh; /* Giới hạn chiều cao để kích hoạt cuộn */
+   overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
+   overflow-x: auto; /* Ẩn cuộn ngang nếu có */
+   background-color: white; /* Đặt màu nền để dễ nhìn */
+   padding: 0px 20px; /* Thêm khoảng cách bên trong */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
+   border-radius: 8px; /* Bo tròn các góc */
+}
+@media (max-width: 768px) {
+   .Detail {
+       width: 90vw; /* Chiếm gần hết chiều rộng màn hình */
+       bottom: 5%; /* Đưa lên một chút để không bị che khuất */
+       max-height: 70vh; /* Giới hạn chiều cao phù hợp */
+   }
+   .card-detail{
+       width: 28rem;
+   }
+   .card-body-detail{
+       width: 90vw;
+   }
+   .card-img-top{
+       width: 100px;
+       height: 100px;
+   }
+}
+.card-img-top {
+ object-fit: cover; /* Giữ tỷ lệ ảnh, tránh bị méo */
+ width: 100%; /* Đảm bảo ảnh luôn đầy đủ */
+ height: auto; /* Giữ chiều cao theo tỉ lệ gốc */
+ image-rendering: crisp-edges; /* Làm sắc nét ảnh */
 }
 
-table thead {
-    background-color: #636e72;
-    color: #fff;
+.card{
+   width: 22rem; margin: 10px
 }
-
-table th, table td {
-    padding: 15px;
-    text-align: left;
+.card-detail{
+   width: 38rem;
+   margin: 10px;
 }
-
-table tbody tr {
-    background-color: #2d3436;
-    color: #fff;
-    transition: background-color 0.3s;
+.card-body-detail{
+   padding: 10px;
 }
-
-table tbody tr:hover {
-    background-color: #0984e3;
+.detail-header {
+   padding: 10px;
+   position: sticky;
+   top:0;
+   background-color: rgb(255, 255, 255);
+   z-index: 1;
 }
-
-table tbody tr td {
-    border-bottom: 1px solid #636e72;
+.card .card-img-top{
+   transition: transform 0.3s ease;
 }
-.btn-link {
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .btn-link:hover {
-    text-decoration: underline;
-    color: #007bff;
-  }
-  .form-label {
-    color: black;
-  }
-  .form{
-    background-color:#c8d6e5;
-    margin-top: 100px;
-  }
+.card-img-top:hover{
+   transform: scale(0.95);
+}
+.obj{
+   display: flex;
+   flex-wrap: wrap;
+}
+.pagination-container {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+}
+.animal-card {
+   position: relative;
+   overflow: hidden;
+   transition: transform 0.3s ease;
+ }
+ 
+ .image-container {
+   position: relative;
+   display: inline-block;
+   width: 100%;
+   overflow: hidden;
+ }
+ 
+ .animal-image {
+   width: 100%;
+   height: auto;
+   transition: transform 0.3s ease-in-out;
+ }
+ 
+ .search-icon {
+   position: absolute;
+   top: 15%;
+   left: 80%;
+   transform: translate(-50%, -50%);
+   font-size: 30px;
+   color: white;
+   background: rgba(0, 0, 0, 0.5);
+   padding: 10px;
+   border-radius: 50%;
+   cursor: pointer;
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+ }
+ 
+ /* Hover vào ảnh thì ảnh thu nhỏ, kính lúp hiện lên */
+ .image-container:hover .animal-image {
+   transform: scale(0.9);
+ }
+ 
+ .image-container:hover .search-icon {
+   opacity: 1;
+   transform: translate(-50%, -50%) scale(1.2);
+ }
+ 
+ 

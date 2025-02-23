@@ -1,31 +1,50 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component ,OnInit,ViewChild} from '@angular/core';
+import { Component ,HostListener,OnInit,ViewChild} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-dongvat',
-  imports: [FormsModule,CommonModule, ],
+  imports: [FormsModule,CommonModule,RouterLink ],
   templateUrl: './dongvat.component.html',
   styleUrls: ['./dongvat.component.css'],
 })
 export class DongvatComponent implements OnInit {
-  constructor(private http: HttpClient) {}
-
-  // Đối tượng để lưu thông tin động vật đang chỉnh sửa
+  searchQuery: string = '';
+  constructor(private http: HttpClient,private route: ActivatedRoute){
+    this.searchSubject.pipe(
+      debounceTime(500)  // Đợi 500ms sau khi người dùng gõ xong mới gọi API
+    ).subscribe(query => this.getAnimal(query));
+  };
+  animal : any [] =[];
   aniObj: any = {
     id: 0,
     name: '',
     description: '',
     type: '',
-    img:""
+    img:"",
   };
   page = 1;
-  pageSize = 3;
+  pageSize = 30;
   totalRecord : number = 0
-  showFullDescription: { [id: string]: boolean } = {}; // Lưu trạng thái mô tả mở rộng
-  // Phương thức kiểm tra mô tả dài
-  isDescriptionLong(description: string): boolean {
-    return description.length > 200;
+  ViewDetail:boolean = false;
+  showFullDescription: { [id: string]: boolean } = {};
+  private searchSubject: Subject<string> = new Subject();
+  ngOnInit() {
+    this.getAnimal(); // Lấy danh sách động vật khi component được khởi tạo
+    this.getTotal();
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['name'] || '';
+      this.getAnimal();
+  });
+  }
+  onSearch() {
+    this.searchSubject.next(this.searchQuery);
+  }
+  getValue(){
+    return  Math.ceil(this.totalRecord/this.pageSize)
   }
   getPageNumber() {
     const totalPages = this.getValue();
@@ -65,94 +84,54 @@ export class DongvatComponent implements OnInit {
   
     return pages;
   }
-  
-  // Phương thức chuyển đổi trạng thái hiển thị
-  toggleDescription(id: string): void {
-    this.showFullDescription[id] = !this.showFullDescription[id];
-  }
-  // Danh sách động vật
-  animal: any[] = [];
-  // Dữ liệu tìm kiếm
-  searchQuery: string = '';
-  showEditForm = false;
-  ngOnInit() {
-    this.getAnimal(); // Lấy danh sách động vật khi component được khởi tạo
-    this.getTotal();
-  }
-  // Lấy danh sách động vật
-  getAnimal() {
-    this.http
-      .get(`https://localhost:7055/api/Animal/GetAll?name=${this.searchQuery}&page=${this.page}&pageSize=${this.pageSize}`)
-      .subscribe((result: any) => {
-        this.animal = result;
-      });
+  onPageChange(pageNo: number){
+    this.page = pageNo;
+    this.getAnimal()
   }
   getTotal(){
     this.http.get('https://localhost:7055/api/Animal/GetTotal').subscribe((Res:any)=>{
       this.totalRecord = Res
     })
   }
-  getValue(){
-    return  Math.ceil(this.totalRecord/this.pageSize)
-  }
-  
-  onPageChange(pageNo: number){
-    this.page = pageNo;
-    this.getAnimal()
-  }
-  getItems(): any[] {
-    // Giả lập dữ liệu
-    return Array.from({ length: 50 }, (_, i) => ({
-      name: `Animal ${i + 1}`,
-      description: `Description ${i + 1}`
-    }));
-  }
-  // Hiển thị thông tin động vật để chỉnh sửa
-  onEdit(data: any) : void {
-    console.log("Edit Data: ", data);
-    this.aniObj = { ...data }; // Sao chép toàn bộ dữ liệu từ đối tượng vào aniObj
-    this.showEditForm = true; // Hiển thị form chỉnh sửa
-    console.log("Show Edit Form: ", this.showEditForm);    
-  }
-  
-  delAnimal(data:any) {
-    if (confirm('Bạn có chắc chắn muốn xóa động vật này?')) {
-      this.http.delete("https://localhost:7055/api/Animal/Delete?id=" + data.id)
-        .subscribe(
-          (response) => {
-            alert('Đã xóa động vật thành công!');
-            
-            this.getAnimal(); // Cập nhật lại danh sách động vật
-          },
-          (error) => {
-            alert('Có lỗi xảy ra khi xóa động vật!');
-          }
-        );
-    }
-  }
-  
-  // Lưu thay đổi khi người dùng sửa thông tin động vật
-  saveChanges() {
+  getAnimal(query?: string) {
     this.http
-      .put(
-        `https://localhost:7055/api/Animal/Update?id=${this.aniObj.id}`,
-        this.aniObj
-      )
-      .subscribe(
-        (response) => {
-          alert('Cập nhật thành công!');
-          this.getAnimal(); // Tải lại danh sách động vật
-          this.aniObj = { id: 0, name: '', description: '', type: '' }; // Đặt lại form
-          this.showEditForm = false; // Ẩn form chỉnh sửa
-        },
-        (error) => {
-          alert('Có lỗi xảy ra khi cập nhật động vật!');
-        }
-      );
+      .get(`https://localhost:7055/api/Animal/GetAll?name=${this.searchQuery}&page=${this.page}&pageSize=${this.pageSize}`)
+      .subscribe((result: any) => {
+        this.animal = result;
+      });
+  }
+  isDescriptionLong(description: string): boolean {
+    return description.length > 200;
+  }
+
+  // Phương thức chuyển đổi trạng thái hiển thị
+  toggleDescription(id: string): void {
+    this.showFullDescription[id] = !this.showFullDescription[id];
+  }
+  onDetail(data:any):void{
+    this.aniObj = {...data};
+    this.ViewDetail = true;
   }
   close(): void {
-    this.showEditForm = false; // Ẩn form chỉnh sửa
+    this.ViewDetail = false; // Ẩn form chỉnh sửa
   }
-  // Hàm khởi tạo
-  
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (scrollPosition > 30) {
+      // Hiển thị nút nếu cuộn xuống hơn 300px
+      document.querySelector('.back-to-top')?.classList.add('show');
+    } else {
+      // Ẩn nút nếu không cuộn quá 300px
+      document.querySelector('.back-to-top')?.classList.remove('show');
+    }
+  }
+
+  // Hàm cuộn lên đầu trang khi nhấn nút
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Cuộn mượt mà
+    });
+  }
 }

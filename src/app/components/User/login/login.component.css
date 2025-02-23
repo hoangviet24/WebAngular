@@ -1,0 +1,7 @@
+.wrap {
+    max-width: 400px; /* Luôn chọn kích thước nhỏ hơn */
+    margin: 50px auto;
+}
+::after{
+    transition: width 2s ease-in-out; 
+}

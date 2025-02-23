@@ -1,0 +1,177 @@
+/* ====== Container tổng ====== */
+.animal-detail-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+/* ====== Tiêu đề ====== */
+.Detail {
+  position: fixed;
+  float: left;
+  bottom: 10%;
+  left: 50%;
+  z-index: 9999;
+  transform: translateX(-50%); 
+  max-height: 80vh; /* Giới hạn chiều cao để kích hoạt cuộn */
+  overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
+  overflow-x: auto; /* Ẩn cuộn ngang nếu có */
+  background-color: white; /* Đặt màu nền để dễ nhìn */
+  padding: 0px 20px; /* Thêm khoảng cách bên trong */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
+  border-radius: 8px; /* Bo tròn các góc */
+}
+
+/* ====== Nội dung chi tiết ====== */
+.animal-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.animal-image {
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.animal-info {
+  flex: 1;
+  font-size: 1.2rem;
+  color: #34495e;
+  line-height: 1.8;
+}
+
+/* ====== Hiệu ứng Hover - Phóng to hình ảnh & kính lúp ====== */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center; /* Căn giữa ảnh */
+  align-items: center;
+}
+
+.animal-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+.card .card-img-top{
+  transition: transform 0.3s ease;
+}
+.card-img-top:hover{
+  transform: scale(0.95);
+}
+
+
+/* Kính lúp */
+.search-icon {
+  position: absolute;
+  top: 15%;
+  left: 80%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Khi hover: hình ảnh phóng to + kính lúp hiện ra */
+.image-container:hover .animal-image {
+  transform: scale(1.1);
+}
+
+.image-container:hover .search-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Card động vật */
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Hình ảnh trong card */
+.card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.card-img-top:hover {
+  transform: scale(0.95);
+}
+
+/* Nút "Xem chi tiết" */
+.btn-primary {
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+/* ====== Modal chi tiết ====== */
+.Detail {
+  position: fixed;
+  float: left;
+  bottom: 10%;
+  left: 50%;
+  z-index: 9999;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.card-detail {
+  width: 38rem;
+  margin: 10px;
+}
+
+.card-body-detail {
+  padding: 10px;
+}
+
+.detail-header {
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+/* Responsive: Tablet và Mobile */
+@media (max-width: 768px) {
+  .animal-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .animal-image {
+    max-width: 100%;
+  }
+
+  .card {
+    margin: 20px 0;
+  }
+
+  .card-detail {
+    max-width: 90%;
+  }
+}

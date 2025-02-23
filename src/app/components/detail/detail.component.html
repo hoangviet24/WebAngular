@@ -1,25 +1,16 @@
-<div class="search bg-dark ">
-  <form class="d-flex " role="search">
-    <input class="form-control me-4" type="search" placeholder="Tìm động vật" aria-label="Search" name="searchQuery"
-      [(ngModel)]="searchQuery">
-    <button class="btn  btn-primary" type="submit" style="min-width: 150px;" (click)="search()"><i
-        class="fa-solid fa-magnifying-glass"></i></button>
-  </form>
-</div>
-<div class="banner">
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>Chào mừng bạn đến với web xem động vật</h1>
-    <p *ngIf="username" style="font-size: 18px; color: #ffffff;">
-      Chào mừng <span style="font-weight: bold; color: #0984e3;">{{ username.split('@')[0] }}</span> 🎉
-    </p>
-    
-    <p *ngIf="!username">Nếu bạn chưa có tài khoản, nhấn vào <a href="register">đây</a> để tạo tài khoản</p>
-  </div>
+<div *ngIf="animal" class="animal-detail-container">
+    <h1 class="animal-title">{{ animal.name }}</h1>
+    <div class="animal-content">
+      <img width="500px" [src]="animal.img" alt="Hình ảnh động vật" class="animal-image">
+      <div class="animal-info">
+        <p><strong>Loài:</strong> {{ animal.type }}</p>
+        <p><strong>Mô tả:</strong> {{ animal.description }}</p>
+      </div>
+    </div>
 </div>
 
 <div class="container py-4">
-  <h2>Top 10 động vật may mắn hôm nay</h2>
+  <h2 class="text-white">Những loại vật liên quan</h2>
   <swiper-container navigation = "true" loop="true"  data-swiper-autoplay="2000" disableOnInteraction	="false"
   [breakpoints]="{
     '1024': { 'slidesPerView': 3 },
@@ -27,7 +18,7 @@
     '0': { 'slidesPerView': 1 }
   }">
 
-    <swiper-slide *ngFor="let dv of animalLucky" >
+    <swiper-slide *ngFor="let dv of animalType" >
       <div  class="card" style="margin: 0 50px;">
         <div class="image-container">
           <img [src]="dv.img" alt="Hình ảnh động vật" class="animal-image">
@@ -45,7 +36,7 @@
               {{ dv.description }}
             </span>
           </p>
-          <a class="btn btn-primary" [routerLink]="['/detail',dv.id]">Xem chi tiết</a>
+          <a class="btn btn-primary" [routerLink]="['/detail',dv.id]" >Xem chi tiết</a>
         </div>
       </div>
     </swiper-slide>
@@ -68,8 +59,4 @@
     </div>
   </div>
 </div>
-
-<!-- Quay trở lại bên trên -->
-<button class="btn btn-secondary back-to-top" (click)="scrollToTop()">
-  <i class="fa-solid fa-arrow-up"></i> 
-</button>
+  

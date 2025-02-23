@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { AuthServiceComponent } from '../auth-service/auth-service.component';
-import { stringify } from 'querystring';
-
+import { AuthServicesService } from '../../services/auth-services.service';
 @Component({
   selector: 'app-header',
   imports: [CommonModule],
@@ -18,7 +16,7 @@ export class HeaderComponent {
   animal: any[] = [];
   searchQuery: string = '';
 
-  constructor(private http: HttpClient, private authService: AuthServiceComponent) {}
+  constructor(private http: HttpClient, private authService: AuthServicesService) {}
 
   getAnimal(): Observable<string[]> {
     return this.http

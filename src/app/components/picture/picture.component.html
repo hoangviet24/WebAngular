@@ -1,19 +1,27 @@
 <div class="container py-4">
-    <h1 class="text-center text-primary mb-4">Upload and View Files</h1>
-    
+    <h1 >Quản lý ảnh</h1>
+    <div class="mb-3">
+      <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Tìm kiếm ảnh..." (input)="filterFiles()" />
+    </div>
     <!-- Upload Form -->
     <div class="card mb-4">
       <div class="card-header">
-        <h2 class="h5 mb-0">Upload File</h2>
+        <h2 class="h5 mb-0">Tải file</h2>
       </div>
+     
+      
       <div class="card-body">
         <div class="mb-3">
-          <label for="fileInput" class="form-label">Select a file to upload:</label>
+          <label for="fileInput" class="form-label">Chọn ảnh:</label>
           <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control" />
         </div>
-        <button (click)="uploadFile()" [disabled]="!selectedFile" class="btn btn-success">
+        <div class="mb-3">
+          <label for="fileNameInput" class="form-label">Tên ảnh:</label>
+          <input type="text" id="fileNameInput" [(ngModel)]="fileName" class="form-control" placeholder="Nhập tên ảnh" />
+        </div>        
+        <button (click)="uploadFile()"  class="btn btn-success">
           Upload
-        </button>
+        </button>        
       </div>
     </div>
     
@@ -21,21 +29,50 @@
     
     <!-- View Files -->
     <div class="card mb-4">
-      <div class="card-header">
-        <h2 class="h5 mb-0 text-info">Available Files</h2>
-      </div>
       <div class="card-body">
-        <ul class="list-group">
-          <li *ngFor="let file of files" class="list-group-item d-flex justify-content-between align-items-center">
-            <span (click)="viewFile(file)" class="file-name" style="cursor: pointer;">
-              {{ file }}
-            </span>
-            <button (click)="deleteFile(file)" class="btn btn-danger btn-sm">
-              Delete
-            </button>
-          </li>
-        </ul>
+        <div class="files-list">
+          <div *ngFor="let file of files" class="file-item text-center p-2 bg-light rounded shadow">
+            <img [title]="getFileName(file)" [src]="file" alt="Image" class="img-fluid rounded"/>
+            <div class="mt-2">
+              <button (click)="deleteFile(file)" class="btn btn-danger btn-sm w-100">
+                <i class="bi bi-trash3"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+    
+    <!-- Hiển thị ảnh lớn -->
+    <div 
+    class="modal fade" 
+    id="imageModal" 
+    tabindex="-1" 
+    aria-labelledby="imageModalLabel" 
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Xem ảnh</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-center">
+          <img [src]="selectedImage" class="img-fluid rounded" />
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Nút Xem Thêm -->
+    <div class="text-center mt-4" *ngIf="hasMoreFiles()">
+      <button (click)="loadMoreFiles()" class="btn btn-primary">
+        <i class="bi bi-arrow-down-circle"></i> Xem thêm
+      </button>
     </div>
     
     <!-- Show Selected Image -->

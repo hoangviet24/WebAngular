@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaoDongVatComponent } from './tao-dong-vat.component';
+import { ManageComponent } from './manage.component';
 
-describe('TaoDongVatComponent', () => {
-  let component: TaoDongVatComponent;
-  let fixture: ComponentFixture<TaoDongVatComponent>;
+describe('ManageComponent', () => {
+  let component: ManageComponent;
+  let fixture: ComponentFixture<ManageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaoDongVatComponent]
+      imports: [ManageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TaoDongVatComponent);
+    fixture = TestBed.createComponent(ManageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

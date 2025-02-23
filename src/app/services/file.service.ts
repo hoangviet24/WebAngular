@@ -1,29 +1,35 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { User } from './User';
+import { User } from '../components/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  private apiUrlImage = 'https://localhost:7055/api/Animal'; 
+  public apiUrlImage = 'https://localhost:7055/api/Animal'; 
   private apiUrlLogin = 'https://localhost:7055/api/User/Login';
   private apiUrlRegister = 'https://localhost:7055/api/User/Post';
+  private apiFavorite = 'https://localhost:7055/api/Fav';
   selectedFile: File | null = null;
   constructor(private http: HttpClient) {}
 
   // Upload file
-  uploadFile(file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post(`${this.apiUrlImage}/Post-file`, formData ,{ responseType: 'text' }); 
+  uploadFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrlImage}/Post-file`, formData, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'text'
+    });
   }
-
+  
   // Lấy danh sách hoặc xem ảnh cụ thể
-  getFile(): Observable<any> {
-    const url =  this.apiUrlImage+'/view-file';
-    return this.http.get(url);
+  getFile(): Observable<string[]> {
+    const url = this.apiUrlImage + `/view-file`;
+    return this.http.get<string[]>(url);
+  }
+  getAnimal(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrlImage}/${id}`);
   }
   getdetailFile(fileName: string): string {
     return `https://localhost:7055/api/Animal/view-file?fileName=${fileName}`;

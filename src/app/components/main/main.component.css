@@ -1,23 +1,107 @@
-
+.search form{
+   padding: 20px;
+   max-width: 960px;
+   margin: 0 auto;
+}
+.search{
+    position: sticky;
+    left: 25%;
+    top: 0;
+    z-index: 100;
+}
+/* Container của banner */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    overflow: hidden;
+  }
+  
+  /* Overlay tối cho ảnh nền */
+  .banner .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);  /* Làm mờ ảnh nền */
+  }
+  
+  /* Content chính trên banner */
+  .banner .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;  /* Đảm bảo nội dung hiển thị trên lớp overlay */
+  }
+  
+  .banner h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .banner p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner a {
+    color: #ff6f61;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 2px solid #ff6f61;
+    transition: all 0.3s;
+  }
+  
+  .banner a:hover {
+    color: #e34b43;
+    border-bottom: 2px solid #e34b43;
+  }
+  
+  /* Tạo hiệu ứng ảnh nền với nhiều ảnh */
+  @keyframes slide {
+    0% { background-image: url('https://localhost:7055/api/Animal/view-file?fileName=Ch%C3%B3(1).jpg'); }
+    33% { background-image: url('https://localhost:7055/api/Animal/view-file?fileName=Ch%C3%B3(2).jpg'); }
+    66% { background-image: url('https://localhost:7055/api/Animal/view-file?fileName=Ch%C3%B3(3).jpg'); }
+    99% { background-image: url('https://localhost:7055/api/Animal/view-file?fileName=Ch%C3%B3.jpg'); }
+    /* 100% { background-image: url('https://localhost:7055/api/Animal/view-file?fileName=Ch%C3%B3(4).jpg'); } */
+  }
+  .banner {
+    animation: slide 15s infinite;
+    background-size: cover;
+    background-position: center;
+  }
 .Detail {
     position: fixed;
+    float: left;
     bottom: 10%;
-    left: 35%;
+    left: 50%;
     z-index: 9999;
-    max-height: 80%; /* Giới hạn chiều cao để kích hoạt cuộn */
+    transform: translateX(-50%); 
+    max-height: 80vh; /* Giới hạn chiều cao để kích hoạt cuộn */
     overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
-    overflow-x: hidden; /* Ẩn cuộn ngang nếu có */
+    overflow-x: auto; /* Ẩn cuộn ngang nếu có */
     background-color: white; /* Đặt màu nền để dễ nhìn */
     padding: 0px 20px; /* Thêm khoảng cách bên trong */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
     border-radius: 8px; /* Bo tròn các góc */
 }
-.card{
-    width: 22rem; margin: 10px
+.card .card-img-top{
+  transition: transform 0.3s ease;
+}
+.card-img-top:hover{
+  transform: scale(0.95);
 }
 .card-detail{
     width: 38rem;
     margin: 10px;
+}
+.card-body-detail{
+    padding: 10px;
 }
 .detail-header {
     padding: 10px;
@@ -26,18 +110,64 @@
     background-color: rgb(255, 255, 255);
     z-index: 1;
 }
-.card .card-img-top{
-    transition: transform 0.3s ease;
+/* Hover kính lúp */
+.image-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
 }
-.card-img-top:hover{
-    transform: scale(0.95);
+
+.animal-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
 }
-.obj{
-    display: flex;
-    flex-wrap: wrap;
+
+.search-icon {
+  position: absolute;
+  top: 20%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 50%;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.623);
 }
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+
+.image-container:hover .animal-image {
+  transform: scale(1.1);
+}
+
+.image-container:hover .search-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Trở về trên đầu */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+swiper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px  /* Để tránh bị lấn vào nút prev/next */
 }

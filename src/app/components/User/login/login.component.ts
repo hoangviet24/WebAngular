@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from '../../file.service';
+import { FileService } from '../../../services/file.service';
 import { Router } from '@angular/router';
-import { AuthServiceComponent } from '../../auth-service/auth-service.component';
+import { AuthServicesService } from '../../../services/auth-services.service';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../User';
 import { environment } from '../../../../environment/environment';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fileServices: FileService,
     private router: Router,
-    private authService: AuthServiceComponent
+    private authService: AuthServicesService
   ) {}
 
   togglePasswordVisibility() {
