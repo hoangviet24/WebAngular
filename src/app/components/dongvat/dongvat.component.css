@@ -39,7 +39,7 @@
    overflow-y: auto; /* Chỉ cuộn theo chiều dọc */
    overflow-x: auto; /* Ẩn cuộn ngang nếu có */
    background-color: white; /* Đặt màu nền để dễ nhìn */
-   padding: 0px 20px; /* Thêm khoảng cách bên trong */
+   padding: 20px; /* Thêm khoảng cách bên trong */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
    border-radius: 8px; /* Bo tròn các góc */
 }

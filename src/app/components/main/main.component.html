@@ -20,11 +20,12 @@
 
 <div class="container py-4">
   <h2>Top 10 động vật may mắn hôm nay</h2>
-  <swiper-container navigation = "true" loop="true"  data-swiper-autoplay="2000" disableOnInteraction	="false"
+  <swiper-container crossFade = "false" navigation="true" loop="true" data-swiper-autoplay="2000" disableOnInteraction="false"
+  [spaceBetween]="10"  
   [breakpoints]="{
-    '1024': { 'slidesPerView': 3 },
-    '768': { 'slidesPerView': 2 },
-    '0': { 'slidesPerView': 1 }
+    '1024': { 'slidesPerView': 3, 'spaceBetween': 20 },
+    '768': { 'slidesPerView': 2, 'spaceBetween': 15 },
+    '0': { 'slidesPerView': 1, 'spaceBetween': 10 }
   }">
 
     <swiper-slide *ngFor="let dv of animalLucky" >

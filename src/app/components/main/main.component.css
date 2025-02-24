@@ -37,7 +37,9 @@
     color: white;
     z-index: 2;  /* Đảm bảo nội dung hiển thị trên lớp overlay */
   }
-  
+  .card{
+    height: 600px;
+  }
   .banner h1 {
     font-size: 3rem;
     font-weight: 600;
@@ -115,11 +117,13 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
+
 }
 
 .animal-image {
   width: 100%;
   height: auto;
+  object-fit: cover;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -145,12 +149,13 @@
 .image-container:hover .search-icon {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1.2);
+  cursor: pointer;
 }
 
 /* Trở về trên đầu */
 .back-to-top {
   position: fixed;
-  bottom: 20px;
+  bottom: 20%;
   right: 20px;
   background-color: #007bff;
   color: white;

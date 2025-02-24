@@ -92,7 +92,8 @@
 
 .image-container:hover .search-icon {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.2);  
+  cursor: pointer;
 }
 
 /* Card động vật */
@@ -123,22 +124,6 @@
   background-color: #2980b9;
 }
 
-/* ====== Modal chi tiết ====== */
-.Detail {
-  position: fixed;
-  float: left;
-  bottom: 10%;
-  left: 50%;
-  z-index: 9999;
-  transform: translateX(-50%);
-  max-height: 80vh;
-  overflow-y: auto;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
 .card-detail {
   width: 38rem;
   margin: 10px;
@@ -149,9 +134,9 @@
 }
 
 .detail-header {
-  padding: 10px;
+  padding: 20px;
   position: sticky;
-  top: 0;
+  top:0;
   background-color: white;
   z-index: 1;
 }

@@ -33,10 +33,7 @@ export class MainComponent implements OnInit {
   totalRecord: number = 0
   ViewDetail: boolean = false;
   showFullDescription: { [id: string]: boolean } = {};
-  ngOnInit() {
-   
-    this.getAnimal(); // Lấy danh sách động vật khi component được khởi tạo
-    this.getRandom();
+  ngOnInit() : void {
     this.authService.username$.subscribe(username => {
       this.username = username;
       console.log('Username:', this.username); // Debugging
@@ -45,14 +42,9 @@ export class MainComponent implements OnInit {
       this.isAdmin = isAdmin;
       console.log('Is Admin:', this.isAdmin); // Debugging
     });
+   
     this.authService.loadUsername(); // Load tên người dùng từ localStorage khi khởi động
-  }
-  getAnimal() {
-    this.http
-      .get(`https://localhost:7055/api/Animal/GetAll?name=${this.searchQuery}&page=${this.page}&pageSize=${this.pageSize}`)
-      .subscribe((result: any) => {
-        this.animal = result;
-      });
+    this.getRandom();
   }
   search() {
     if (this.searchQuery.trim()) {

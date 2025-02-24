@@ -26,9 +26,18 @@ export class LoginComponent implements OnInit {
     private authService: AuthServicesService
   ) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.loadRememberedUser()
   }
-
+  loadRememberedUser() {
+    const savedEmail = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    if (savedEmail && password) {
+      this.email = savedEmail;
+      this.password = password;
+      this.rememberMe = true; // Đánh dấu checkbox
+    }
+  }
+  
   togglePasswordVisibility() {
     if (this.passwordFieldType === 'password') {
       this.passwordFieldType = 'text';

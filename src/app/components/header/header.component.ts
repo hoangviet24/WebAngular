@@ -27,16 +27,22 @@ export class HeaderComponent {
   }
 
   ngOnInit(): void {
+    console.log('LocalStorage Username:', localStorage.getItem('username'));
+    console.log('LocalStorage isAdmin:', localStorage.getItem('isAdmin'));
+  
     this.authService.username$.subscribe(username => {
       this.username = username;
-      console.log('Username:', this.username); // Debugging
+      console.log('Loaded Username:', this.username); // Debugging
     });
+  
     this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
-      console.log('Is Admin:', this.isAdmin); // Debugging
+      console.log('Loaded Is Admin:', this.isAdmin); // Debugging
     });
+  
     this.authService.loadUsername(); // Load tên người dùng từ localStorage khi khởi động
   }
+  
   getDisplayUsername(): string {
     if (this.username && this.username.length > 10) {
       return this.username.substring(0, 10) + '...';
